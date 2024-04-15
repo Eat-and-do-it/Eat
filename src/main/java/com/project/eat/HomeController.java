@@ -16,7 +16,7 @@ public class HomeController {
 	public String hello(Model model) {
 		log.info("/hello...");
 
-		return "thymeleaf/index";
+		return "thymeleaf/";
 	}
 
 	//로그인페이지 input 기재한 id / pw 조회로 post방식이 원칙이나 임의로 쿠키생성을 위한 테스트용
