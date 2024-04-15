@@ -1,6 +1,6 @@
 package com.project.eat.cart;
 
-import com.project.eat.member.MemberRepository;
+import com.project.eat.member.MemberRepositoryEM;
 import com.project.eat.member.MemberVO_JPA;
 import com.project.eat.shop.ShopRepositoryEM;
 import com.project.eat.shop.ShopVO;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryEM memberRepository;
     private final ShopRepositoryEM shopRepository;
 
     public Cart findCart(Long cartId) {

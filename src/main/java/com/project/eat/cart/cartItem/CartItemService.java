@@ -7,7 +7,7 @@ import com.project.eat.item.Item;
 import com.project.eat.item.ItemOption;
 import com.project.eat.item.ItemRepository;
 import com.project.eat.item.itemOption.ItemOptionRepository;
-import com.project.eat.member.MemberRepository;
+import com.project.eat.member.MemberRepositoryEM;
 import com.project.eat.member.MemberVO_JPA;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class CartItemService {
 
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryEM memberRepository;
     private final ItemOptionRepository itemOptionRepository;
     private final CartItemOptionRepository cartItemOptionRepository;
 

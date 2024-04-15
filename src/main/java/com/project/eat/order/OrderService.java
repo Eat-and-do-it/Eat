@@ -3,7 +3,7 @@ package com.project.eat.order;
 import com.project.eat.cart.Cart;
 import com.project.eat.cart.cartItem.CartItem;
 import com.project.eat.cart.CartItemOption;
-import com.project.eat.member.MemberRepository;
+import com.project.eat.member.MemberRepositoryEM;
 import com.project.eat.member.MemberVO_JPA;
 import com.project.eat.order.orderItem.OrderItem;
 import com.project.eat.order.orderItem.OrderItemRepository;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryEM memberRepository;
     private final OrderItemRepository orderItemRepository;
 
     @Transactional
