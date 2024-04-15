@@ -1,8 +1,9 @@
 package com.project.eat.cart;
 
-import com.project.eat.domain.member.Member;
-import com.project.eat.domain.order.OrderType;
-import com.project.eat.domain.shop.Shop;
+import com.project.eat.cart.cartItem.CartItem;
+import com.project.eat.member.MemberVO_JPA;
+import com.project.eat.order.OrderType;
+import com.project.eat.shop.ShopVO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,11 +26,11 @@ public class Cart {
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    private MemberVO_JPA member;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shop_id")
-    private Shop shop;
+    private ShopVO shop;
 
     @Enumerated(EnumType.STRING)
     private OrderType orderType;

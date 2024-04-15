@@ -1,15 +1,14 @@
 package com.project.eat.cart.cartItem;
 
+import com.project.eat.cart.Cart;
+import com.project.eat.cart.CartItemOption;
 import com.project.eat.cart.cartOption.CartItemOptionRepository;
-import com.project.eat.domain.cart.Cart;
-import com.project.eat.domain.cart.CartItem;
-import com.project.eat.domain.cart.CartItemOption;
-import com.project.eat.domain.item.Item;
-import com.project.eat.domain.item.ItemOption;
-import com.project.eat.domain.member.Member;
+import com.project.eat.item.Item;
+import com.project.eat.item.ItemOption;
 import com.project.eat.item.ItemRepository;
 import com.project.eat.item.itemOption.ItemOptionRepository;
 import com.project.eat.member.MemberRepository;
+import com.project.eat.member.MemberVO_JPA;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class CartItemService {
     public void saveCartItem(String memberId, Long itemId, Long itemOptionId, int quantity, int price, Cart memberCart) {
         // 장바구니 음식 같은 음식이면 수량만 증가
         // 옵션 다르면 새롭게 추가
-        Member findMember = memberRepository.findOne(memberId);
+        MemberVO_JPA findMember = memberRepository.findOne(memberId);
         List<CartItem> cartItems = findMember.getCart().getCartItems();
 
         for (CartItem cartItem : cartItems) {

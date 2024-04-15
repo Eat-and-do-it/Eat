@@ -1,7 +1,7 @@
 package com.project.eat.item;
 
-import com.project.eat.domain.shop.Shop;
-import com.project.eat.shop.ShopRepository;
+import com.project.eat.shop.ShopRepositoryEM;
+import com.project.eat.shop.ShopVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ShopRepository shopRepository;
+    private final ShopRepositoryEM shopRepository;
 
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);
@@ -23,7 +23,7 @@ public class ItemService {
     @Transactional
     public void updateItem(Long itemId, ItemForm form) {
         Item findItem = itemRepository.findOne(itemId);
-        Shop findShop = shopRepository.findShop(form.getShopId());
+        ShopVO findShop = shopRepository.findShop(form.getShopId());
         findItem.setItemDescription(form.getDescription());
         findItem.setItemName(form.getName());
         findItem.setItemPrice(form.getPrice());
@@ -37,7 +37,7 @@ public class ItemService {
     @Transactional
     public void saveItem(ItemForm form) {
         Item item = new Item();
-        Shop shop = shopRepository.findShop(form.getShopId());
+        ShopVO shop = shopRepository.findShop(form.getShopId());
         item.setShop(shop);
         item.setItemName(form.getName());
         item.setItemPrice(form.getPrice());

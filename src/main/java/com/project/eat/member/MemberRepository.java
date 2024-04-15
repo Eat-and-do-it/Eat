@@ -1,4 +1,4 @@
-package com.project.eat.order.orderItemOption;
+package com.project.eat.member;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OrderItemOptionRepository {
+public class MemberRepository {
 
     private final EntityManager em;
 
-    public void save(OrderItemOption orderItemOption) {
-        em.persist(orderItemOption);
+    public MemberVO_JPA findOne(String memberId) {
+        return em.find(MemberVO_JPA.class, memberId);
     }
 }
+

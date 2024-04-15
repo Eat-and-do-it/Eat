@@ -1,12 +1,13 @@
 package com.project.eat.cart;
 
+import com.project.eat.cart.cartItem.CartItem;
 import com.project.eat.cart.cartItem.CartItemService;
-import com.project.eat.domain.item.Item;
-import com.project.eat.domain.item.ItemOption;
-import com.project.eat.domain.member.Member;
+import com.project.eat.item.Item;
+import com.project.eat.item.ItemOption;
 import com.project.eat.item.ItemService;
 import com.project.eat.item.itemOption.ItemOptionService;
 import com.project.eat.member.MemberService;
+import com.project.eat.member.MemberVO_JPA;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class CartController {
         if (itemOptionId == null) {
             return ResponseEntity.ok(response);
         }
-        Member findMember = memberService.findOne(memberId);
+        MemberVO_JPA findMember = memberService.findOne(memberId);
         Cart memberCart = findMember.getCart();
 
         if (memberCart == null) {
@@ -47,7 +48,7 @@ public class CartController {
             memberCart = findMember.getCart();
         }
         if (memberCart.getShop() != null) {
-            if (memberCart.getShop().getId() != shopId) {
+            if (memberCart.getShop().getShopId() != shopId) {
                 cartService.deleteAndCreateCart(memberId, shopId);
                 memberCart = findMember.getCart();
             }
@@ -68,7 +69,7 @@ public class CartController {
     @DeleteMapping("/{cartItemId}/delete")
     public ResponseEntity<CartItem> deleteCartItem(@PathVariable("cartItemId") Long cartItemId, HttpSession session) {
         String memberId = session.getAttribute("memberId").toString();
-        Member findMember = memberService.findOne(memberId);
+        MemberVO_JPA findMember = memberService.findOne(memberId);
 
         if (findMember.getCart().getCartItems().size() <= 1) {
             cartService.delete(findMember.getCart());

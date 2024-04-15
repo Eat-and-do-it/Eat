@@ -1,11 +1,10 @@
 package com.project.eat.order;
 
-import com.project.eat.domain.cart.Cart;
-import com.project.eat.domain.cart.CartItem;
-import com.project.eat.domain.cart.CartItemOption;
-import com.project.eat.domain.member.Member;
-import com.project.eat.domain.order.*;
+import com.project.eat.cart.Cart;
+import com.project.eat.cart.cartItem.CartItem;
+import com.project.eat.cart.CartItemOption;
 import com.project.eat.member.MemberRepository;
+import com.project.eat.member.MemberVO_JPA;
 import com.project.eat.order.orderItem.OrderItem;
 import com.project.eat.order.orderItem.OrderItemRepository;
 import com.project.eat.order.orderItemOption.OrderItemOption;
@@ -26,7 +25,7 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(String memberId, OrderForm form) {
-        Member findMember = memberRepository.findOne(memberId);
+        MemberVO_JPA findMember = memberRepository.findOne(memberId);
         log.info("memberId = {}", findMember.getId());
         Cart cart = findMember.getCart();
         log.info("cartId = {}", cart.getId());

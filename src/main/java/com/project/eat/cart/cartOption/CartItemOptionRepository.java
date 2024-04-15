@@ -1,6 +1,6 @@
 package com.project.eat.cart.cartOption;
 
-import com.project.eat.domain.cart.CartItemOption;
+import com.project.eat.cart.CartItemOption;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -1,10 +1,9 @@
 package com.project.eat.order;
 
+import com.project.eat.cart.Cart;
 import com.project.eat.cart.CartService;
-import com.project.eat.domain.cart.Cart;
-import com.project.eat.domain.member.Member;
-import com.project.eat.domain.order.*;
 import com.project.eat.member.MemberService;
+import com.project.eat.member.MemberVO_JPA;
 import com.project.eat.order.orderItem.OrderItem;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +27,9 @@ public class OrderController {
     @GetMapping("/order")
     public String orderPage(Model model, HttpSession session, OrderForm orderForm) {
         String memberId = session.getAttribute("memberId").toString();
-        Member findMember = memberService.findOne(memberId);
+        MemberVO_JPA findMember = memberService.findOne(memberId);
         if (findMember.getCart().getTotalPrice() < findMember.getCart().getShop().getMinPriceInt()) {
-            return "redirect:/shop/" + findMember.getCart().getShop().getId();
+            return "redirect:/shop/" + findMember.getCart().getShop().getShopId();
         }
         log.info(findMember.getAddress().getAddress());
         Cart cart = findMember.getCart();
@@ -61,7 +60,7 @@ public class OrderController {
     public String orderList(HttpSession session, Model model) {
 
         String memberId = session.getAttribute("memberId").toString();
-        Member findMember = memberService.findOne(memberId);
+        MemberVO_JPA findMember = memberService.findOne(memberId);
         List<Order> orders = findMember.getOrders();
         model.addAttribute("orders", orders);
         return "/order/orderList";

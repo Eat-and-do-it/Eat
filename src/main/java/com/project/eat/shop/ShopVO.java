@@ -1,5 +1,8 @@
 package com.project.eat.shop;
 
+import com.project.eat.cart.Cart;
+import com.project.eat.item.Item;
+import com.project.eat.order.Order;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,7 +35,7 @@ public class ShopVO {
     private String deliveryTime;
 
     @Column(name="delivery_price")
-    private String deliveryPrice;
+    private Integer deliveryPrice;
 
     @Column(name="run_time")
     private String runTime;
@@ -56,8 +59,19 @@ public class ShopVO {
     private String shopThum;
 
     @Column(name="min_price_int")
-    private int minPriceInt;
+    private Integer minPriceInt;
 
 //    private String cateName;
+
+    @OneToMany(mappedBy = "shop")
+    private List<Cart> carts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop")
+    private List<Item> items = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop")
+    private List<Order> orders = new ArrayList<>();
+
+
 
 }

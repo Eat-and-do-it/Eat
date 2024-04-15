@@ -1,6 +1,6 @@
 package com.project.eat.item;
 
-import com.project.eat.domain.shop.Shop;
+import com.project.eat.shop.ShopVO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class Item {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
-    private Shop shop;
+    private ShopVO shop;
 
     private String itemName;
     private int itemPrice;

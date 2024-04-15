@@ -11,6 +11,9 @@ public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
+    @Autowired
+    private ShopRepositoryEM shopRepositoryEM;
+
     public List<ShopVO> selectAll(){
         return shopRepository.findAll();
     }
@@ -122,5 +125,9 @@ public class ShopService {
 
     public List<Object[]> findShopWithMenu(int shopId) {
         return shopRepository.findShopWithMenu(shopId);
+    }
+
+    public ShopVO findShop(Long shopId) {
+        return shopRepositoryEM.findShop(shopId);
     }
 }

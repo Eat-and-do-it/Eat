@@ -1,6 +1,8 @@
-package com.project.eat.cart;
+package com.project.eat.cart.cartItem;
 
-import com.project.eat.domain.item.Item;
+import com.project.eat.cart.Cart;
+import com.project.eat.cart.CartItemOption;
+import com.project.eat.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

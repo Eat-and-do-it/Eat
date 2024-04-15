@@ -1,8 +1,8 @@
 package com.project.eat.order;
 
-import com.project.eat.domain.member.Member;
-import com.project.eat.domain.shop.Shop;
+import com.project.eat.member.MemberVO_JPA;
 import com.project.eat.order.orderItem.OrderItem;
+import com.project.eat.shop.ShopVO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,11 +25,11 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    private MemberVO_JPA member;
 
     @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
-    private Shop shop;
+    private ShopVO shop;
     private int totalPrice;
 
     @Enumerated(EnumType.STRING)

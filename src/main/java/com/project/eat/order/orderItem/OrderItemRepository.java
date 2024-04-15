@@ -1,6 +1,5 @@
 package com.project.eat.order.orderItem;
 
-import com.project.eat.domain.order.OrderItem;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
