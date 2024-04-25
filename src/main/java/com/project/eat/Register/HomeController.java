@@ -11,24 +11,20 @@ import java.util.Date;
 @Controller
 public class HomeController {
 
-    @GetMapping("/member/register")
-    public String Register (Model model) {
-        log.info("/registerJoin...");
+	@GetMapping({"/","/home"})
+	public String home(Model model) {
+		log.info("/home...");
+		
+		Date to_day = new Date();//Wed Feb 21 16:35:13 KST 2024
+		model.addAttribute("to_day",to_day);
+		
+//		return "thymeleaf/Register/register";
+		return "register";
+	}
 
-        Date to_day = new Date();//Wed Feb 21 16:35:13 KST 2024
-        model.addAttribute("to_day",to_day);
 
-        return "register";
-    }
 
-    @GetMapping("/register")
-    public String register (Model model) {
-        log.info("/register...");
-
-        Date to_day = new Date();//Wed Feb 21 16:35:13 KST 2024
-        model.addAttribute("to_day",to_day);
-
-        return "register";
-    }
-
+	
+	
+	
 }
