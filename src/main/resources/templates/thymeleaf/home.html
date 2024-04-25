@@ -1,0 +1,300 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>메인페이지</title>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/eat.css}">
+    <!--    <link href="../../static/css/eat.css" rel="stylesheet">-->
+</head>
+
+<body th:replace="~{layout :: layout}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+</script>
+
+<div th:fragment="content" class="container py-3">
+    <!-- ----------------------------------------------------------------- -->
+    <!-- content 넣으실 부분 -->
+    <!-- footer 하단 고정 때문에 content는 다 wrapper안에 넣음 -->
+
+    <div class="container">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <h4 class="mb-3">[[${title}]]</h4>
+                <!-- novalidate는 유효성 감사 action은 폼이 서버로 데이터를 처리할 엔드 포인트 주소-->
+                <form class="validation-form" novalidate action="/member/insertOK"
+                      method="post" >  <!--여기에 novalidate action /member/insertOK 로 수정 / 여기를 member/singin 으로 변경-->
+
+                    <div class="mb-3">
+                        <label for="name">* 이름<br>
+                            <input type="text" id="name" name= "name" placeholder="이름을 입력하세요." ><br><br>
+                            <!-- 여기에 name 값을 안 넣어서 실행이 안됨-->
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ID">* ID<br>
+                            <input class="id" id="id" type="id" name= "id" placeholder="아이디를 입력하세요." ><br><br>
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password">* PW<br>
+                            <input class="pw" id="password" type="password" name= "pw" placeholder="비밀번호를 입력하세요." ><br><br>
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nickname">* 닉네임<br>
+                            <input class="nickname" id="nickname" type="nickname" name= "nickname" placeholder="별명을 입력하세요." ><br><br>
+                        </label>
+                    </div>
+
+
+                    <label>* 주소</label><br>
+                    <form class="validation-form" novalidate action="/member/insertOK"
+                          method="post" onsubmit="prepareAddress(); prepareEmail();">
+                        <div class="address">
+                            <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" >
+                            <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
+                            <input type="text" id="sample6_address" name="address" placeholder="주소" ><br>
+                            <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소" ><br><br>
+                            <!-- 합친 주소를 전달할 hidden input --><!-- hidden readonly -->
+                            <input type="hidden" name="address" id="combined_address" placeholder="합쳐진 주소" required>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="phone">* phone (-제외)<br>
+                                <input class="phone" id="phone" type="phone" name= "tel" placeholder="전화번호를 입력하세요." ><br><br>
+                            </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">* 이메일<br> <!-- email -->
+                                <input type="text" id="email" name="email" placeholder="이메일을 입력하세요."
+                                       oninput="prepareEmail()" >
+                                <span>@</span>
+                                <select id="mail_Select">
+                                    <option>이메일 선택</option>
+                                    <option>naver.com</option>
+                                    <option>gmail.com</option>
+                                </select>
+                                <button type="button" class="btn btn-dark" onclick="sendVerificationCode()">인증번호 발송</button>
+                                </span>
+                            </label>
+                        </div>
+
+                        <small id="NumberMsg" style="display: none;">인증번호가 발송되었습니다.</small>
+                        <div class="form-grid form-number">
+                            <input type="number" class="form-control" id="inputNumber" placeholder="인증번호 입력">
+                            <button type="button" class="btn btn-dark" onclick="verifyCode()">확인</button>
+                            <small id="VerificationMsg" style="display: none;">인증이 완료되었습니다.</small>
+                        </div>
+
+                        <hr>
+                        <div class="form-group">
+                            <h1>서비스 이용 약관 동의</h1>
+                            <div><input type="checkbox" class="form-check-input" id="exampleCheck">
+                                <label class="form-check-label" for="exampleCheck1">전체 동의하기</label>
+                            </div>
+                            <div class="square">
+                                <div><input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">이용약관 동의(필수)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                    <label class="form-check-label" for="exampleCheck1">개인정보 수집 및 이용 동의(필수)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                                    <label class="form-check-label" for="exampleCheck1">전자금융거래 이용약관(필수)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck4">
+                                    <label class="form-check-label" for="exampleCheck1">만 14세 이상 사용자(필수)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck5">
+                                    <label class="form-check-label" for="exampleCheck1">먹고해 혜택 알림 동의(선택)<br></label>
+                                </div>
+                            </div>
+                            <!--confirmNumber 불러와야지 사용을 할 수 있다 -->
+
+                            <input class="btn btn-primary btn-lg btn-block" type="submit" value="가입하기">
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!--카카오 API 추가 -->
+    <!--    주소 합치기    -->
+    <script>
+        function prepareAddress() {
+            // 주소 필드들의 값을 가져옴
+            var postcode = document.getElementById('sample6_postcode').value;
+            var address = document.getElementById('sample6_address').value;
+            var detailAddress = document.getElementById('sample6_detailAddress').value;
+
+            // 주소 필드들이 모두 공백인지 확인
+            if (postcode.trim().length === 0 && address.trim().length === 0 && detailAddress.trim().length === 0) {
+                // 모든 주소 필드가 공백이면 합친 주소를 null로 설정
+                document.getElementById('combined_address').value = null;
+            } else {
+                // 주소 필드들이 모두 공백이 아니면 주소를 합쳐서 설정
+                var combinedAddress = address + ' ' + detailAddress;
+                document.getElementById('combined_address').value = combinedAddress;
+                <!-- 따로 VO에 넣어서 -->
+            }
+        }
+    </script>
+
+
+    <!--카카오 주소 찾기 API 추가-->
+    <script>
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
+                    var extraAddr = ''; // 참고항목 변수
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                    if (data.userSelectedType === 'R') {
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if (data.buildingName !== '' && data.apartment === 'Y') {
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if (extraAddr !== '') {
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+
+                        // 주소변수 문자열과 참고항목 문자열 합치기
+                        addr += extraAddr;
+
+                    } else {
+                        addr += ' ';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+
+                    // else {
+                    //         addr += extraAddr;
+                    //     }
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample6_postcode').value = data.zonecode;
+                    document.getElementById("sample6_address").value = addr;
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById("sample6_detailAddress").focus();
+                }
+            }).open();
+        }
+    </script>
+
+    <!--  이메일  주소 합치기    -->
+    <script>
+        function prepareEmail() {
+            // 주소 필드들의 값을 가져옴
+            var dbEmail = document.getElementById('DBEmail').value;
+            var emailId = document.getElementById('EmailId').value;
+            var emailDomain = document.getElementById('EmailDomain').value;
+
+            // 주소 필드들이 모두 공백인지 확인
+            if (emailId.trim().length === 0 && emailDomain.trim().length === 0) {
+                // 모든 주소 필드가 공백이면 합친 주소를 null로 설정
+                document.getElementById('combined_email').value = null;
+            } else {
+                // 주소 필드들이 모두 공백이 아니면 주소를 합쳐서 설정
+                var combinedEmail = emailId + '@' + emailDomain;
+                document.getElementById('combined_email').value = combinedEmail;
+                console.log(combinedEmail);
+
+                if (dbEmail !== combinedEmail) {
+                    document.getElementById("updateBtn").disabled = true;
+                } else {
+                    document.getElementById("updateBtn").disabled = false;
+                }
+            }
+
+
+
+        }
+    </script>
+    <!-- 이메일 인증번호 발송 메세지 -->
+    <script>
+        function sendVerificationCode() {
+            document.getElementById("NumberMsg").style.display = "block";
+        }
+
+        function verifyCode() {
+            document.getElementById("VerificationMsg").style.display = "block";
+        }
+    </script>
+
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <!--    <script type="text/javascript">-->
+    <!--        function sendNumber(){-->
+    <!--            $("#mail_number").css("display","block");-->
+    <!--            $.ajax({-->
+    <!--                url:"/mail",-->
+    <!--                type:"post",-->
+    <!--                dataType:"json",-->
+    <!--                data:{"mail" : $("#mail").val()},-->
+    <!--                success: function(data){-->
+    <!--                    alert("인증번호 발송");-->
+    <!--                    $("#Confirm").attr("value",data);-->
+    <!--                },-->
+    <!--        });-->
+    <!--        }-->
+
+    <!--        function confirmNumber(){-->
+    <!--            var number1 = $("#number").val();-->
+    <!--            var number2 = $("#Confirm").val();-->
+
+    <!--            if(number1 == number2){-->
+    <!--                alert("인증되었습니다.");-->
+    <!--            }else{-->
+    <!--                alert("번호가 다릅니다.");-->
+    <!--            }-->
+    <!--        }-->
+    <!--    </script>-->
+    <!--        <form role="form" method="post" th:object="${memberFormDto}">-->
+    <!--            <div class="form-group">-->
+    <!--                &lt;!&ndash; 생략 &ndash;&gt;-->
+    <!--                <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>-->
+    <!--            </div>-->
+    <!--            <br>-->
+    <!--            <div id="mail_number" name="mail_number" style="display: none">-->
+    <!--                <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">-->
+    <!--                <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>-->
+    <!--                &lt;!&ndash; 생략 &ndash;&gt;-->
+    <!--            </div>-->
+    <!--        </form>-->
+</div>
+</body>
+
+
+</html>

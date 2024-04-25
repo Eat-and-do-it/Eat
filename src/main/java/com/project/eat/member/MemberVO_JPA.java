@@ -2,7 +2,7 @@ package com.project.eat.member;
 
 import com.project.eat.address.Address;
 import com.project.eat.cart.Cart;
-import com.project.eat.order.Order;
+//import com.project.eat.order.Order;
 import jakarta.persistence.*;
 import lombok.Data;
 
