@@ -16,6 +16,7 @@ public class UploadService {
     private String uploadDir;
 
     public String uploadFile(MultipartFile file) throws IOException {
+        log.info("{}",uploadDir);
         // 업로드된 파일의 이름 생성
         String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         // 파일을 업로드할 디렉토리 경로 설정
@@ -24,7 +25,7 @@ public class UploadService {
         File dest = new File(filePath);
         file.transferTo(dest);
         // 파일의 URL 생성
-        String fileUrl = "/upload/" + fileName; // 이 부분은 실제 웹 애플리케이션의 URL로 변경해야 합니다.
+        String fileUrl = uploadDir + fileName; // 이 부분은 실제 웹 애플리케이션의 URL로 변경해야 합니다.
 //        String fileUrl = uploadDir+"/" + fileName; // 이 부분은 실제 웹 애플리케이션의 URL로 변경해야 합니다.
         log.info("UploadService 피알 url 생성 확인 fileUrl:{}",fileUrl);
 

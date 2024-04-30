@@ -329,8 +329,8 @@ public class ReviewController {
             }
         }
 
-        String absolutePath = "C:/upload/test.png"; // 절대 경로 설정
-        model.addAttribute("imagePath", absolutePath);
+//        String absolutePath = "C:/upload/test.png"; // 절대 경로 설정
+//        model.addAttribute("imagePath", absolutePath);
 
 
         return "thymeleaf/review/reviewListByShopId";
